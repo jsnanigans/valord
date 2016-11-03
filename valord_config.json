@@ -1,10 +1,10 @@
 {
     "boxes": {
         "main": {
-            "location": "/home/<user>/Homestead/"
+            "location": "~/Homestead/"
         },
         "scotch": {
-            "location": "/home/<user>/ScotchBox/"
+            "location": "~/ScotchBox/"
         }
     }
 }
