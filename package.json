@@ -1,0 +1,19 @@
+{
+  "name": "valord",
+  "version": "1.0.0",
+  "description": "cli manager for vagrant",
+  "main": "valord.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "valord": "/red/Projects/side/valord/valord.js"
+  },
+  "author": "Brendan Mullins",
+  "license": "ISC",
+  "dependencies": {
+    "cli-color": "^1.1.0",
+    "progrescii": "^0.1.1",
+    "shelljs": "^0.7.5"
+  }
+}
