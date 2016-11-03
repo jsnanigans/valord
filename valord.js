@@ -10,7 +10,7 @@ var valord = function() {
     t.init = function() {
         t.config = JSON.parse(fs.readFileSync('/red/Projects/side/valord/valord_config.json', 'utf8'));
         t.boxes = config.boxes;
-        t.allowedCommands = ['up', 'reload', 'provision', 'halt', 'suspend'];
+        t.allowedCommands = ['up', 'reload', 'provision', 'halt', 'suspend', 'status', 'resume'];
         t.options = t.parseParams(process.argv);
 
         if (t.options !== false) {
@@ -103,10 +103,28 @@ var valord = function() {
             console.log('running ' + clc.cyan('vagrant ' + options.command) + ' in ' + clc.cyan.underline(options.config.location));
             shell.cd(options.config.location);
 
+            console.log(clc.cyan('┌───────────'));
             t.run_cmd('vagrant', [options.command], function(me, buffer) {
-                var string = buffer.toString().replace(/(\r\n|\n|\r)/gm, '').replace(/ {2}/g, '').replace(/==>/g, clc.cyan('\r>') + clc.white('   ==>'));
-                console.log(clc.cyan('>   ') + clc.green(string));
+                var string = buffer.toString().replace(/ {2}/g, '');
+                if (options.command !== 'status') {
+                    string = string.replace(/(\r\n|\n|\r)/gm, '').replace(/==>/g, clc.cyan('\r├ ') + clc.white('==>'));
+                } else {
+                    string = string.replace(/(\r\n|\n)/gm, clc.cyan('\n|     '));
+                }
+                var str = clc.white(string);
+                if (string.indexOf('==>') === -1) {
+                    str = clc.blackBright(string);
+                }
+                if (string.indexOf('stop/waiting') !== -1 || string.indexOf('start/running') !== -1) {
+                    str = clc.green(string);
+                }
+                if (string.indexOf('You are ') !== -1) {
+                    str = clc.red(string);
+                }
+
+                console.log(clc.cyan('├     ') + str);
             }, function() {
+                console.log(clc.cyan('└───────────'));
                 if (callback) {
                     callback();
                 }
