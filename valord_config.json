@@ -1,10 +1,10 @@
 {
     "boxes": {
         "main": {
-            "location": "/home/b-mullins/Homestead/"
+            "location": "/home/<user>/Homestead/"
         },
         "scotch": {
-            "location": "/home/b-mullins/ScotchBox/"
+            "location": "/home/<user>/ScotchBox/"
         }
     }
 }
